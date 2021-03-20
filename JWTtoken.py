@@ -1,0 +1,50 @@
+
+from datetime import datetime, timedelta
+from fastapi import HTTPException
+from typing import Optional
+from fastapi.security import OAuth2PasswordBearer
+
+from fastapi import Depends
+from jose import JWTError, jwt
+from sqlalchemy.orm import Session
+
+from database import get_db
+from repository.user import User as ModelUser
+
+import schemas
+
+
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+	to_encode = data.copy()
+	if expires_delta:
+		expire = datetime.utcnow() + expires_delta
+	else:
+		expire = datetime.utcnow() + timedelta(minutes=15)
+	to_encode.update({"exp": expire})
+	encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+	return encoded_jwt
+
+
+async def verify_token(
+		credentials_exception: HTTPException, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+	try:
+		payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+		email: str = payload.get("sub")
+		if email is None:
+			raise credentials_exception
+		token_data = schemas.TokenData(email=email)
+	except JWTError:
+		raise credentials_exception
+	# user = ModelUser.get_user_email(token_data.email, db)
+	user = await ModelUser.get_user_email_async(token_data.email)
+	# user = get_user(fake_users_db, username=token_data.email)
+	if user is None:
+		raise credentials_exception
+	return user
