@@ -61,3 +61,30 @@ Agora vá para [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 ___
 Agora vá para [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc).
 ![Swagger UI](img/api-redoc.png)
+
+### Lista das dependências e suas versões
+___
+Todas estão no arquivo **_requirements.txt_**.
+- asyncpg==0.22.0
+- bcrypt==3.2.0
+- cffi==1.14.5
+- click==7.1.2
+- cryptography==3.4.6
+- databases==0.4.2
+- ecdsa==0.14.1
+- fastapi==0.63.0
+- h11==0.12.0
+- passlib==1.7.4
+- psycopg2-binary==2.8.6
+- pyasn1==0.4.8
+- pycparser==2.20
+- pydantic==1.8.1
+- python-jose==3.2.0
+- python-multipart==0.0.5
+- rsa==4.7.2
+- six==1.15.0
+- SQLAlchemy==1.3.23
+- starlette==0.13.6
+- text-unidecode==1.3
+- typing-extensions==3.7.4.3
+- uvicorn==0.13.4
