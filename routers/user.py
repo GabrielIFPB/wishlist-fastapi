@@ -10,7 +10,7 @@ from repository.user import User as ModelUser
 
 
 router = APIRouter(
-    prefix='/users',
+    prefix="/users",
     tags=["user"]
 )
 
@@ -33,12 +33,12 @@ async def shutdown():
 #     return ModelUser.create_sync(user, db)
 
 
-@router.get('/', response_model=List[schemas.ShowUser], status_code=status.HTTP_200_OK)
+@router.get("/", response_model=List[schemas.ShowUser], status_code=status.HTTP_200_OK)
 async def get_users_async():
     return await ModelUser.get_all_async()
 
 
-@router.post('/', response_model=schemas.ShowUser, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=schemas.ShowUser, status_code=status.HTTP_201_CREATED)
 async def create_user_async(user: schemas.User):
     """
     criar uma conta de usuário, bas ta informa o nome, email e a senha
@@ -47,7 +47,7 @@ async def create_user_async(user: schemas.User):
     return user
 
 
-@router.get('/{user_id}', response_model=schemas.ShowUser, status_code=status.HTTP_200_OK)
+@router.get("/{user_id}", response_model=schemas.ShowUser, status_code=status.HTTP_200_OK)
 async def show_async(user_id: int):
     """
     criar uma conta de usuário, bas ta informa o nome, email e a senha

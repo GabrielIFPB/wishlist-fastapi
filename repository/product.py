@@ -21,7 +21,7 @@ products = sqlalchemy.Table(
 	sqlalchemy.Column("link", sqlalchemy.String),
 	sqlalchemy.Column("image", sqlalchemy.String),
 	sqlalchemy.Column("buy", sqlalchemy.Boolean),
-	sqlalchemy.Column("user_id", sqlalchemy.Integer, ForeignKey('user.id')),
+	sqlalchemy.Column("user_id", sqlalchemy.Integer, ForeignKey("user.id")),
 	# sqlalchemy.orm.relationship()
 )
 
@@ -56,7 +56,7 @@ class Product:
 		if not product:
 			raise HTTPException(
 				status_code=status.HTTP_404_NOT_FOUND,
-				detail=f'Items with the id {product_id} is not found.'
+				detail=f"Items with the id {product_id} is not found."
 			)
 		return product
 	
@@ -68,12 +68,12 @@ class Product:
 		if not new_product.first():
 			raise HTTPException(
 				status_code=status.HTTP_404_NOT_FOUND,
-				detail=f'Items with the id {product_id} is not found.'
+				detail=f"Items with the id {product_id} is not found."
 			)
 		
 		new_product.update(product)
 		db.commit()
-		return 'updated'
+		return "updated"
 	
 	@staticmethod
 	def delete(product_id: int, db: Session, user: schemas.LoginUser):
@@ -83,7 +83,7 @@ class Product:
 		if not product.first():
 			raise HTTPException(
 				status_code=status.HTTP_404_NOT_FOUND,
-				detail=f'Items with the id {product_id} is not found.'
+				detail=f"Items with the id {product_id} is not found."
 			)
 		
 		product.delete(synchronize_session=False)
@@ -101,7 +101,7 @@ class Product:
 		if not item:
 			raise HTTPException(
 				status_code=status.HTTP_404_NOT_FOUND,
-				detail=f'has no items.'
+				detail=f"has no items."
 			)
 		return item
 	
@@ -113,12 +113,12 @@ class Product:
 		if not product.first():
 			raise HTTPException(
 				status_code=status.HTTP_404_NOT_FOUND,
-				detail=f'Items with the id {wish_id} is not found.'
+				detail=f"Items with the id {wish_id} is not found."
 			)
 		
-		product.update({'buy': win})
+		product.update({"buy": win})
 		db.commit()
-		return 'buy'
+		return "buy"
 
 	""" usando async """
 	
@@ -151,7 +151,7 @@ class Product:
 		if not product:
 			raise HTTPException(
 				status_code=status.HTTP_404_NOT_FOUND,
-				detail=f'Items with the id {product_id} is not found.'
+				detail=f"Items with the id {product_id} is not found."
 			)
 		return schemas.Product(**product)
 	
@@ -161,7 +161,7 @@ class Product:
 			.where(and_(products.c.id == product_id, products.c.user_id == user_id)) \
 			.values(product.dict())
 		await database.execute(query)
-		return 'updated'
+		return "updated"
 	
 	async def delete_async(self, product_id: int, user_id: int):
 		await self.show_async(product_id, user_id)
@@ -175,7 +175,7 @@ class Product:
 			.where(and_(products.c.id == wish_id, products.c.user_id == user_id)) \
 			.values(buy=win)
 		await database.execute(query)
-		return 'buy'
+		return "buy"
 	
 	@staticmethod
 	async def show_random_async(user_id: int) -> schemas.Product:
@@ -190,7 +190,7 @@ class Product:
 		if not item:
 			raise HTTPException(
 				status_code=status.HTTP_404_NOT_FOUND,
-				detail=f'has no items.'
+				detail=f"has no items."
 			)
 		a = schemas.Product(**item)
 		return schemas.Product(**item)

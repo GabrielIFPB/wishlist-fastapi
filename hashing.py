@@ -11,5 +11,5 @@ class Hash:
 		return pwd_context.hash(password)
 	
 	@staticmethod
-	def verify(user_password, request_password):
+	def verify(user_password: str, request_password: str):
 		return pwd_context.verify(request_password, user_password)

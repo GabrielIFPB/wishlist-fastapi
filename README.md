@@ -6,4 +6,4 @@ Para executar o projeto precisa ter o python 3.8 ou superior instalado na maquin
 
 ## Executando projeto usando virtualenv
 
-
+## Executando projeto usando docker
