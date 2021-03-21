@@ -12,11 +12,11 @@ from repository.user import users
 from hashing import Hash
 
 router = APIRouter(
-	tags=['Authentication']
+	tags=["Authentication"]
 )
 
 
-@router.post('/login')
+@router.post('/login', response_model=schemas.Token)
 async def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
 	"""
 	informe o email e senha para se autenticar, assim poderá usar os recursos da lista de desejos.
@@ -25,22 +25,20 @@ async def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = De
 	query = users.select().where(users.c.email == request.username)
 	user = await database.fetch_one(query)
 	user = schemas.Login(**user)
-	password = f"'{request.password}'"
+	password = f"{request.password}"
 	
 	if not user:
 		raise HTTPException(
-			status_code=status.HTTP_404_NOT_FOUND,
-			detail=f'Invalid email or password.'
+			status_code=status.HTTP_401_UNAUTHORIZED,
+			detail=f"Invalid email or password."
 		)
-	elif Hash.verify(user.password, password):
+	elif not Hash.verify(user.password, password):
 		raise HTTPException(
-			status_code=status.HTTP_404_NOT_FOUND,
-			detail=f'Invalid email or password.'
+			status_code=status.HTTP_401_UNAUTHORIZED,
+			detail=f"Invalid email or password."
 		)
-	
-	# access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+
 	access_token = create_access_token(
-		data={"sub": user.email},
-		# expires_delta=access_token_expires
+		data={"sub": user.email}
 	)
 	return {"access_token": access_token, "token_type": "bearer"}

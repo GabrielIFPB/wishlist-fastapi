@@ -11,15 +11,15 @@ import schemas
 from oauth2 import get_current_user
 
 router = APIRouter(
-	prefix='/wishlist',
+	prefix="/wishlist",
 	tags=["WishList"]
 )
 
 
 def filename(image: UploadFile):
-	file_location = ''
+	file_location = ""
 	if image:
-		file_location = f"media/{uuid.uuid4()}." + image.filename.split('.')[1]
+		file_location = f"media/{uuid.uuid4()}." + image.filename.split(".")[1]
 		with open(file_location, "wb+") as file_object:
 			shutil.copyfileobj(image.file, file_object)
 	return file_location
@@ -96,7 +96,7 @@ def filename(image: UploadFile):
 """ usando async """
 
 
-@router.get('/', response_model=List[schemas.Product], )
+@router.get("/", response_model=List[schemas.Product], )
 async def get_all_async(user: schemas.LoginUser = Depends(get_current_user)):
 	"""
 	retorna todos os desejos de um usuário ou uma lista vazia.
@@ -104,7 +104,7 @@ async def get_all_async(user: schemas.LoginUser = Depends(get_current_user)):
 	return await ModelProduct.get_all_async(user.id)
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED, response_model=schemas.Product)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Product)
 async def create_async(
 		title: str,
 		description: Optional[str] = None,
@@ -121,7 +121,7 @@ async def create_async(
 	return await ModelProduct.create_async(product, user.id)
 
 
-@router.get('/{wish_id}', status_code=status.HTTP_200_OK, response_model=schemas.Product)
+@router.get("/{wish_id}", status_code=status.HTTP_200_OK, response_model=schemas.Product)
 async def show_async(wish_id: int, user: schemas.LoginUser = Depends(get_current_user)):
 	"""
 	retorna o item selecionado pelo id, caso o item não exista retorna 404 not found.
@@ -129,19 +129,27 @@ async def show_async(wish_id: int, user: schemas.LoginUser = Depends(get_current
 	return await ModelProduct.show_async(wish_id, user.id)
 
 
-@router.put('/{wish_id}', status_code=status.HTTP_202_ACCEPTED)
+@router.put("/{wish_id}", status_code=status.HTTP_202_ACCEPTED)
 async def update_async(
-		wish_id: int, product: schemas.Product,
-		user: schemas.LoginUser = Depends(get_current_user)):
+		wish_id: int,
+		title: str,
+		description: Optional[str] = None,
+		link: Optional[str] = None,
+		image: UploadFile = File(None),
+		user: schemas.LoginUser = Depends(get_current_user)
+):
 	"""
 	atualiza os dados do item selecionado pelo id, caso o item não exista retorna 404 not found.
 	"""
 	
 	modelProduct = ModelProduct()
+	file_location = filename(image)
+	product = schemas.Product(
+		title=title, description=description, link=link, image=file_location)
 	return await modelProduct.update_async(wish_id, user.id, product)
 
 
-@router.delete('/[wish_id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/[wish_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_async(wish_id: int, user: schemas.LoginUser = Depends(get_current_user)):
 	"""
 	deleta o item pelo id, caso o item não exista retorna 404 not found.
@@ -151,7 +159,7 @@ async def delete_async(wish_id: int, user: schemas.LoginUser = Depends(get_curre
 	return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@router.patch('/{wish_id}/buy', status_code=status.HTTP_202_ACCEPTED)
+@router.patch("/{wish_id}/buy", status_code=status.HTTP_202_ACCEPTED)
 async def buy_async(wish_id: int, win: bool, user: schemas.LoginUser = Depends(get_current_user)):
 	"""
 	Endpoint para o usuário informar se já comprou o item, passando o id e um valor para buy boolean
@@ -161,7 +169,7 @@ async def buy_async(wish_id: int, win: bool, user: schemas.LoginUser = Depends(g
 	return await modelProduct.buy_async(wish_id, win, user.id)
 
 
-@router.get('/wish-random/', response_model=schemas.Product, status_code=status.HTTP_200_OK)
+@router.get("/wish-random/", response_model=schemas.Product, status_code=status.HTTP_200_OK)
 async def wish_random_async(user: schemas.LoginUser = Depends(get_current_user)):
 	"""
 	retorna um item da lista de forma aleatória

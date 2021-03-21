@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class Product(BaseModel):
-	title: str
+	title: str = Form(...)
 	description: Optional[str] = None
 	link: Optional[str] = None
 	image: Optional[str] = None
