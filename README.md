@@ -3,12 +3,12 @@
 ### Projeto foi construído com Python 3.8.5
 
 Para executar o projeto precisa ter o python 3.8 ou superior instalado na maquina.
-- download [Python](https://www.python.org/).
+- download [https://www.python.org/](https://www.python.org/).
 
 ## Executando projeto usando virtualenv
 ### Requisitos
 ___
-- Download [Virtualenv](https://pypi.org/project/virtualenv/).
+- Download [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/).
 - Instalação usando pip ```pipx install virtualenv```.
 - Verificar a versão ```virtualenv --help```.
 - Criar um ambiente virtual ```python3 -m virtualenv venv```, antes de executar o comado escolha um local para criar a pasta do virtualenv.
@@ -51,6 +51,9 @@ Exemplo usando postgresql: "postgresql://usuário:senha@127.0.0.1/wishlist"
 ___
 Deve haver uma pasta com o nome **media** na raiz para armazenar as imagens.
 ## Executando projeto usando docker
+___
+Docker version 19.03.13, build cd8016b6bc. <br>
+Download [https://www.docker.com/](https://www.docker.com/)
 
 ## Documentação da API
 ___
