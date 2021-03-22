@@ -5,6 +5,20 @@
 Para executar o projeto precisa ter o python 3.8 ou superior instalado na maquina.
 - download [https://www.python.org/](https://www.python.org/).
 
+## Executando projeto usando docker
+___
+Docker version 19.03.13, build cd8016b6bc. <br>
+Download [https://www.docker.com/](https://www.docker.com/)
+
+User o comando a baixo para criar toda a estrutura do projeto e executar.
+```
+# docker-compose up
+```
+Para deixar a linha de comando livre. 
+```
+# docker-compose up -d
+```
+
 ## Executando projeto usando virtualenv
 ### Requisitos
 ___
@@ -49,15 +63,6 @@ INFO:     Started reloader process [28720]
 INFO:     Started server process [28722]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-```
-## Executando projeto usando docker
-___
-Docker version 19.03.13, build cd8016b6bc. <br>
-Download [https://www.docker.com/](https://www.docker.com/)
-
-User o comando a baixo para criar toda a estrutura do projeto e executar.
-```
-# docker-compose up
 ```
 
 ## Documentação da API
