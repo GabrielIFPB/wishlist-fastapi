@@ -55,6 +55,11 @@ ___
 Docker version 19.03.13, build cd8016b6bc. <br>
 Download [https://www.docker.com/](https://www.docker.com/)
 
+User o comando a baixo para criar toda a estrutura do projeto e executar.
+```
+# docker-compose up
+```
+
 ## Documentação da API
 ___
 Agora vá para [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
