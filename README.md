@@ -1,8 +1,8 @@
 # Wish List wight FastApi
 
-### Projeto foi construído com Python 3.8.5
+### O projeto foi construído com Python 3.8.5
 
-Para executar o projeto precisa ter o python 3.8 ou superior instalado na maquina.
+Para executar o projeto é necessário ter o python 3.8 ou superior instalado na máquina.
 - download [https://www.python.org/](https://www.python.org/).
 
 ## Executando projeto usando docker
@@ -10,7 +10,7 @@ ___
 Docker version 19.03.13, build cd8016b6bc. <br>
 Download [https://www.docker.com/](https://www.docker.com/)
 
-User o comando a baixo para criar toda a estrutura do projeto e executar.
+Para criar toda a estrutura do projeto e executar na máquina, use os seguintes comandos.
 ```
 # docker-compose up
 ```
@@ -38,21 +38,21 @@ dell@dell:~$ source venv/bin/activate
 
 ### Instalando dependência
 ___
-No repositório tem um arquivo chamado **_requirements.txt_** com todas as dependências do projeto. Para instalar execute o comando baixo.
+No repositório tem um arquivo chamado **_requirements.txt_** com todas as dependências do projeto. Para instalar execute o comando abaixo.
 
 ```
 $ pip install -r requirements.txt
 ```
 ### Banco de dados
 ___
-Criar o arquivo ```.env``` dentro dele irá colocar a URL do postgresql. 
+Ao criar o arquivo ```.env``` deverá conter a URL do postgresql.
 ```
 DATABASE_URL = "postgresql://usuario:senha@127.0.0.1/wishlist"
 ```
-- colocar usuário e senha qua foi configurado no banco de dados 
+- Configure-o com o usuário e senha que foram inseridos no banco de dados.
 ### Imagem
 ___
-Deve haver uma pasta com o nome **media** na raiz para armazenar as imagens.
+Na pasta raiz deverá haver uma pasta com o nome **media** para que sejam armazenadas as imagens.
 ### Run 
 ___
 ```
