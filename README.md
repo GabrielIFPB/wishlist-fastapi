@@ -18,7 +18,7 @@ ___
 
 - Ativando o virtualenv
 ```
-dell@dell:~$ source source venv/bin/activate
+dell@dell:~$ source venv/bin/activate
 (venv) dell@dell:~$
 ```
 
@@ -29,7 +29,16 @@ No repositório tem um arquivo chamado **_requirements.txt_** com todas as depen
 ```
 $ pip install -r requirements.txt
 ```
-
+### Banco de dados
+___
+Criar o arquivo ```.env``` dentro dele irá colocar a URL do postgresql. 
+```
+DATABASE_URL = "postgresql://usuario:senha@127.0.0.1/wishlist"
+```
+- colocar usuário e senha qua foi configurado no banco de dados 
+### Imagem
+___
+Deve haver uma pasta com o nome **media** na raiz para armazenar as imagens.
 ### Run 
 ___
 ```
@@ -41,15 +50,6 @@ INFO:     Started server process [28722]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
-### Banco de dados
-___
-No arquivo **_database.py_**, na linha 8 (**_DATABASE_URL_**) deve colocar a conexão com o seu banco.
-<br>
-Exemplo usando postgresql: "postgresql://usuário:senha@127.0.0.1/wishlist"
-- trocar usuário e a senha 
-### Imagem
-___
-Deve haver uma pasta com o nome **media** na raiz para armazenar as imagens.
 ## Executando projeto usando docker
 ___
 Docker version 19.03.13, build cd8016b6bc. <br>

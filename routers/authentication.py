@@ -24,15 +24,16 @@ async def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = De
 	# user = db.query(models.User).filter(models.User.email == request.username).first()
 	query = users.select().where(users.c.email == request.username)
 	user = await database.fetch_one(query)
-	user = schemas.Login(**user)
-	password = f"{request.password}"
-	
+
 	if not user:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
 			detail=f"Invalid email or password."
 		)
-	elif not Hash.verify(user.password, password):
+
+	user = schemas.Login(**user)
+	password = f"{request.password}"
+	if not Hash.verify(user.password, password):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
 			detail=f"Invalid email or password."

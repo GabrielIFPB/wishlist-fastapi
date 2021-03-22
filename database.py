@@ -4,8 +4,9 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from decouple import config
 
-DATABASE_URL = "postgresql://gabriel:root@127.0.0.1/wishlist"
+DATABASE_URL = config("DATABASE_URL")
 
 database = databases.Database(DATABASE_URL)
 
