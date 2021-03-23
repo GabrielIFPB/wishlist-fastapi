@@ -192,5 +192,4 @@ class Product:
 				status_code=status.HTTP_404_NOT_FOUND,
 				detail=f"has no items."
 			)
-		a = schemas.Product(**item)
 		return schemas.Product(**item)

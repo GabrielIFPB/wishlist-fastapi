@@ -18,7 +18,11 @@ Para deixar a linha de comando livre.
 ```
 # docker-compose up -d
 ```
-No arquivo docker-composer.yml você pode alterar a senha do banco de dados
+Use o comando abaixo para parar.
+```
+# docker-compose down
+```
+No arquivo docker-composer.yml você pode alterar a senha do banco de dados.
 ```
 POSTGRES_USER=gabriel
 POSTGRES_PASSWORD=root
