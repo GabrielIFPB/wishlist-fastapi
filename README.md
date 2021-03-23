@@ -27,6 +27,10 @@ No arquivo docker-composer.yml você pode alterar a senha do banco de dados.
 POSTGRES_USER=gabriel
 POSTGRES_PASSWORD=root
 ```
+Ao criar o arquivo **.env** deverá conter a URL do postgresql.
+```
+DATABASE_URL=postgresql://gabriel:root@db/postgres
+```
 
 ## Executando projeto usando virtualenv
 ### Requisitos
